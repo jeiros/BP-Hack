@@ -14,7 +14,7 @@ for i, elem in enumerate(root):
     elif 'longitude' in repr(children):
       lon = children
   coords[i] = (float(lat.text), float(lon.text))
-  
-np.savetxt('./gas_stations_coords.csv', coords, delimiter=' ', fmt='%.4f')
+
+np.savetxt('./gas_stations_coords.csv', coords, delimiter=',', fmt='%.4f')
 
 
