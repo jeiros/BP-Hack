@@ -20,7 +20,7 @@ from tempfile import gettempdir
 
 # Create a client using the credentials and region defined in the [adminuser]
 # section of the AWS credentials file (~/.aws/credentials).
-session = Session(profile_name="adminuser")
+session = Session(profile_name="default")
 
 polly = session.client("polly")
 
