@@ -26,8 +26,8 @@ polly = session.client("polly")
 
 try:
     # Request speech synthesis
-    response = polly.synthesize_speech(Text="Hello world!", OutputFormat="mp3",
-                                        VoiceId="Ivy")
+    response = polly.synthesize_speech(Text="K ise illo", OutputFormat="mp3",
+                                       VoiceId="Enrique")
 except (BotoCoreError, ClientError) as error:
     # The service returned an error, exit gracefully
     print(error)
