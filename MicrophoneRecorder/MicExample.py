@@ -57,12 +57,12 @@ def add_silence(snd_data, seconds):
 
 def record():
     """
-    Record a word or words from the microphone and 
+    Record a word or words from the microphone and
     return the data as an array of signed shorts.
 
-    Normalizes the audio, trims silence from the 
-    start and end, and pads with 0.5 seconds of 
-    blank sound to make sure VLC et al can play 
+    Normalizes the audio, trims silence from the
+    start and end, and pads with 0.5 seconds of
+    blank sound to make sure VLC et al can play
     it without getting chopped off.
     """
     p = pyaudio.PyAudio()
