@@ -26,13 +26,13 @@ lex_session = Session(profile_name="adminuser")
 lex = lex_session.client("lex-runtime")
 
 response = lex.post_text(
-    botName='TheRubberBot',
-    botAlias='TheRubberBot',
+    botName='CopilotBot',
+    botAlias='CopilotBot',
     userId='TheRubberDucks',
     sessionAttributes={
         'string': 'string'
     },
-    inputText='My eyes are closing'
+    inputText='TRIGGER COPILOT'
 )
 
 message = response['message']
