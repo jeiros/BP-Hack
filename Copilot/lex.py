@@ -29,6 +29,8 @@ def getMessage(response):
         return "ReadyForFulfillment"
     elif(response['dialogState'] == 'Failed'):
         return response['message']
+    elif(response['dialogState'] == 'ElicitIntent'):
+        return response['message']
     else:
         return None
 
@@ -133,7 +135,7 @@ def spoken_no():
         },
         accept = 'text/plain; charset=utf-8',
         contentType='audio/L16; rate=16000; channels=1',
-        inputStream= audio_stream
+        inputStream= 'yes.wav'
     )
 
     print(response)
