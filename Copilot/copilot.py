@@ -22,7 +22,7 @@ class copilot_obj:
 
     def start(self):
         self.active = True
-        #self.CP_speak("Hello, I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
+        self.CP_speak("Hello, I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
 
     def run(self):
         if(self.active):
