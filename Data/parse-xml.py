@@ -23,7 +23,6 @@ def closest_node(point, coordinates):
     return np.argmin(dist_2)
 
 
-
 if __name__ == '__main__':
     dict_data = {"name" : [],"latitude" : [], "longitude" : [],"openingHoursMonday" : [],
                  "openingHoursTuesday": [], "openingHoursWednesday" : [], "openingHoursThursday":[],
