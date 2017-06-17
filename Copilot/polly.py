@@ -20,7 +20,7 @@ import audio
 
 # Create a client using the credentials and region defined in the [adminuser]
 # section of the AWS credentials file (~/.aws/credentials).
-session = Session(profile_name="eduardo_personal", region_name='eu-west-1')
+session = Session(profile_name="default", region_name='eu-west-1')
 polly = session.client("polly")
 id_n = 0
 

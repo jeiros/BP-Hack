@@ -42,6 +42,7 @@ def stop():
 
 
 def getMessage(response):
+    print(response)
     if(response['dialogState'] == 'ConfirmIntent'):
         return (response['message'],1)
     elif(response['dialogState'] == 'ReadyForFulfillment'):

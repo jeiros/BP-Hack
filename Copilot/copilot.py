@@ -36,25 +36,21 @@ class copilot_obj:
         self.CP_speak(r)
         self.finish = False
         while(not self.finish):
+            self.CP_listen()
+            r, type = lex.lex_txrx(self.mess_text)
             if(type == 1):
-                self.CP_listen()
-                r,type = lex.lex_txrx(self.mess_text)
                 self.CP_speak(r)
             elif(type == 2):
                 self.CP_speak("I can play music for you.")
                 self.CP_speak("I can send an automatic message.")
                 self.CP_speak("I can call the emergency services.")
                 self.CP_speak("What would you like me to do?.")
-                self.CP_listen()
-                r, type = lex.lex_txrx(self.mess_text)
             elif(type == 0):
+                self.CP_speak(r)
                 self.finish = 1
             elif(type == 3):
                 pass
-            elif(type == 4):
-                pass
-            elif(type == 5):
-                pass
+                #make_call()
             else:
                 pass
             lex.stop()
