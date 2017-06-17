@@ -11,7 +11,8 @@ import speech_recognition as sr
 from voice import record_to_file
 from os import path
 import time
-import text_friend
+from text_friend import text_friend
+from make_call import make_call
 
 
 def recognize_speech(audio_file):
