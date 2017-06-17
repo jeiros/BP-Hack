@@ -6,7 +6,6 @@ import googlemaps
 from datetime import datetime
 gmaps = googlemaps.Client(key='AIzaSyCqRbZGdjXPN_YUAQbXHPB5760dKXcTq20')
 import pandas as pd
-import IPython;
 
 
 def location():
