@@ -10,30 +10,13 @@
 """
 
 """Getting Started Example for Python 2.7+/3.3+"""
-from boto3 import Session
-from botocore.exceptions import BotoCoreError, ClientError
-from contextlib import closing
-import os
-import sys
-import subprocess
-from tempfile import gettempdir
+import copilot
 
-import polly
+# Create Copilot object.
+alicia = copilot.copilot_obj()
 
-# Create a client using the credentials and region defined in the [adminuser]
-# section of the AWS credentials file (~/.aws/credentials).
-lex_session = Session(profile_name="adminuser")
-lex = lex_session.client("lex-runtime")
+# Start copilot.
+alicia.start()
 
-response = lex.post_text(
-    botName='CopilotBot',
-    botAlias='CopilotBot',
-    userId='TheRubberDucks',
-    sessionAttributes={
-        'string': 'string'
-    },
-    inputText='TRIGGER COPILOT'
-)
-
-message = response['message']
-polly.polly_play(message)
+# While(1) loop.
+alicia.run()
