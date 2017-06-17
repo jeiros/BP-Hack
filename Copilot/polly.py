@@ -19,17 +19,20 @@ import subprocess
 from tempfile import gettempdir
 import audio
 
+
 # Create a client using the credentials and region defined in the [adminuser]
 # section of the AWS credentials file (~/.aws/credentials).
 session = Session(profile_name="default")
-
 polly = session.client("polly")
+id_n = 0
 
 def polly_play(input_str):
+    global id_n
+    id_n = id_n + 1
     try:
         # Request speech synthesis
         response = polly.synthesize_speech(Text=input_str, OutputFormat="mp3",
-                                           VoiceId="Ivy")
+                                           VoiceId="Kendra")
     except (BotoCoreError, ClientError) as error:
         # The service returned an error, exit gracefully
         print(error)
@@ -42,12 +45,13 @@ def polly_play(input_str):
         # ensure the close method of the stream object will be called automatically
         # at the end of the with statement's scope.
         with closing(response["AudioStream"]) as stream:
-            output = os.path.join(gettempdir(), "speech.mp3")
+            output = os.path.join(gettempdir(), "speech"+str(id_n)+".mp3")
 
             try:
                 # Open a file for writing the output as a binary stream
                 with open(output, "wb") as file:
                     file.write(stream.read())
+                    file.close()
             except IOError as error:
                 # Could not write to file, exit gracefully
                 print(error)
