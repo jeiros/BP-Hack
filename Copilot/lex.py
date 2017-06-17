@@ -1,3 +1,4 @@
+"""Getting Started Example for Python 2.7+/3.3+"""
 from boto3 import Session
 from botocore.exceptions import BotoCoreError, ClientError
 from contextlib import closing
@@ -10,6 +11,16 @@ import json
 lex_session = Session(profile_name="adminuser", region_name="us-east-1")
 lex = lex_session.client("lex-runtime")
 
+def stop():
+    response = lex.post_text(
+        botName='CopilotBot',
+        botAlias='Prod',
+        userId='TheRubberDucks',
+        sessionAttributes={
+            'string': 'string'
+        },
+        inputText='Stop'
+    )
 
 def getMessage(response):
     if(response['dialogState'] == 'ConfirmIntent'):
@@ -17,6 +28,8 @@ def getMessage(response):
     elif(response['dialogState'] == 'ReadyForFulfillment'):
         return "ReadyForFulfillment"
     elif(response['dialogState'] == 'Failed'):
+        return response['message']
+    elif(response['dialogState'] == 'ElicitIntent'):
         return response['message']
     else:
         return None
@@ -100,12 +113,30 @@ def yes():
 
 def no():
     response = lex.post_text(
+     botName='CopilotBot',
+     botAlias='Prod',
+     userId='TheRubberDucks',
+     sessionAttributes={
+         'string': 'string'
+     },
+     inputText='No'
+    )
+    return getMessage(response)
+
+def spoken_no():
+    file_w = open('./stereo_file.wav', 'r')
+    audio_stream = file_w.read
+    response = lex.post_content(
         botName='CopilotBot',
         botAlias='Prod',
-        userId='TheRubberDucks',
+        userId='pablopg',
         sessionAttributes={
             'string': 'string'
         },
-        inputText='No'
+        accept = 'text/plain; charset=utf-8',
+        contentType='audio/L16; rate=16000; channels=1',
+        inputStream= 'yes.wav'
     )
+
+    print(response)
     return getMessage(response)

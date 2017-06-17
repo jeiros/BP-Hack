@@ -22,17 +22,15 @@ class copilot_obj:
 
     def start(self):
         self.active = True
-        self.CP_speak("Hello, I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
+        #self.CP_speak("Hello, I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
 
     def run(self):
         if(self.active):
             r0 = lex.eyes_closed()
             self.CP_speak(r0)
-            r1 = lex.text_contact('John')
+
+            # Respond with audio.
+            r1 = lex.spoken_no()
             self.CP_speak(r1)
-            r2 = lex.call_police()
-            print(r2)
-            # r1 = lex.no()
-            # self.CP_speak(r1)
         else:
             pass
