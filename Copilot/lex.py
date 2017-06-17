@@ -10,12 +10,15 @@ import json
 import speech_recognition as sr
 from voice import record_to_file
 from os import path
+import time
 
 
 def recognize_speech(audio_file):
     "Edu papa bless boiii you da best"
     r = sr.Recognizer()
+    print(audio_file)
     AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), audio_file)
+    print(AUDIO_FILE)
     with sr.AudioFile(AUDIO_FILE) as source:
         audio = r.record(source)  # read the entire audio file
     text = r.recognize_google(audio)
@@ -25,6 +28,7 @@ def recognize_speech(audio_file):
 
 lex_session = Session(profile_name="adminuser", region_name="us-east-1")
 lex = lex_session.client("lex-runtime")
+
 
 def stop():
     response = lex.post_text(
@@ -36,6 +40,7 @@ def stop():
         },
         inputText='Stop'
     )
+
 
 def getMessage(response):
     if(response['dialogState'] == 'ConfirmIntent'):
@@ -49,7 +54,15 @@ def getMessage(response):
 
 
 def call_police():
-    text = recognize_speech(record_to_file('test1.wav'))
+    time.sleep(3)
+    print('HABLA AHORA')
+    audio_file = record_to_file('trial1.wav')
+    print(audio_file)
+    print('ACABE DE GRABAR')
+    print('analyzing speech')
+    text = recognize_speech(audio_file)
+    print('finished analyzing speech')
+    print(text)
     response = lex.post_text(
         botName='CopilotBot',
         botAlias='Prod',
@@ -127,15 +140,16 @@ def yes():
 
 def no():
     response = lex.post_text(
-     botName='CopilotBot',
-     botAlias='Prod',
-     userId='TheRubberDucks',
-     sessionAttributes={
-         'string': 'string'
-     },
-     inputText='No'
+        botName='CopilotBot',
+        botAlias='Prod',
+        userId='TheRubberDucks',
+        sessionAttributes={
+            'string': 'string'
+        },
+        inputText='No'
     )
     return getMessage(response)
+
 
 def spoken_no():
     response = lex.post_content(
@@ -145,9 +159,9 @@ def spoken_no():
         sessionAttributes={
             'string': 'string'
         },
-        accept = 'text/plain; charset=utf-8',
+        accept='text/plain; charset=utf-8',
         contentType='audio/',
-        inputStream= 'https://s3.eu-west-2.amazonaws.com/static-server-for-rendering-xml/no.opus'
+        inputStream='https://s3.eu-west-2.amazonaws.com/static-server-for-rendering-xml/no.opus'
     )
 
     print(response)
