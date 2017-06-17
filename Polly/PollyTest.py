@@ -21,14 +21,15 @@ import pygame as pg
 
 # Create a client using the credentials and region defined in the [adminuser]
 # section of the AWS credentials file (~/.aws/credentials).
-session = Session(profile_name="default")
+session = Session(profile_name="eduardo_personal")
 
 polly = session.client("polly")
 
 try:
     # Request speech synthesis
-    response = polly.synthesize_speech(Text="K ise illo", OutputFormat="mp3",
-                                       VoiceId="Enrique")
+    message = 'Hello, there seem to have been an accident in White City, please send an agent.'
+    response = polly.synthesize_speech(Text=message, OutputFormat="mp3",
+                                       VoiceId="Kendra")
 except (BotoCoreError, ClientError) as error:
     # The service returned an error, exit gracefully
     print(error)
@@ -41,7 +42,7 @@ if "AudioStream" in response:
     # ensure the close method of the stream object will be called automatically
     # at the end of the with statement's scope.
     with closing(response["AudioStream"]) as stream:
-        output = os.path.join(gettempdir(), "speech.mp3")
+        output = "speech.mp3"
 
         try:
             # Open a file for writing the output as a binary stream
