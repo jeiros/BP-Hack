@@ -11,5 +11,5 @@ def make_call():
     call = client.api.account.calls\
           .create(to=name_to_number['edu'],  # Any phone number
                   from_="+441423740800", # Must be a valid Twilio number
-                  url='https://538d95f2.ngrok.io')
+                  url='https://afec5d45.ngrok.io')
     print(call.sid)

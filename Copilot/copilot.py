@@ -49,8 +49,8 @@ class copilot_obj:
                 self.CP_speak(r)
                 self.finish = 1
             elif(type == 3):
-                pass
-                #make_call()
+                print('Calling phone number...')
+                make_call()
             else:
                 pass
             lex.stop()
