@@ -11,6 +11,40 @@ import json
 lex_session = Session(profile_name="adminuser", region_name="us-east-1")
 lex = lex_session.client("lex-runtime")
 
+def getMessage(response):
+    if(response['dialogState'] == 'ConfirmIntent'):
+        return response['message']
+    elif(response['dialogState'] == 'ReadyForFulfillment'):
+        return "ReadyForFulfillment"
+    elif(response['dialogState'] == 'Failed'):
+        return response['message']
+    else:
+        return None
+
+def call_police():
+    pass
+
+def eyes_closed():
+    response = lex.post_text(
+     botName='CopilotBot',
+     botAlias='Prod',
+     userId='TheRubberDucks',
+     sessionAttributes={
+         'string': 'string'
+     },
+     inputText='TRIGGER COPILOT'
+    )
+    return getMessage(response)
+
+def find_nearest_gas_station():
+    pass
+
+def play_music():
+    pass
+
+def reset():
+    pass
+
 def stop():
     response = lex.post_text(
         botName='CopilotBot',
@@ -22,27 +56,9 @@ def stop():
         inputText='Stop'
     )
 
-def getMessage(response):
-    if(response['dialogState'] == 'ConfirmIntent'):
-        return response['message']
-    elif(response['dialogState'] == 'ReadyForFulfillment'):
-        return "ReadyForFulfillment"
-    elif(response['dialogState'] == 'Failed'):
-        return response['message']
-    else:
-        return None
+def text_contact():
+    pass
 
-def trigger():
-    response = lex.post_text(
-     botName='CopilotBot',
-     botAlias='Prod',
-     userId='TheRubberDucks',
-     sessionAttributes={
-         'string': 'string'
-     },
-     inputText='TRIGGER COPILOT'
-    )
-    return getMessage(response)
 
 def yes():
     response = lex.post_text(
