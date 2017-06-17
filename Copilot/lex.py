@@ -12,7 +12,6 @@ from voice import record_to_file
 from os import path
 import time
 
-
 def recognize_speech(audio_file):
     "Edu papa bless boiii you da best"
     r = sr.Recognizer()
@@ -44,11 +43,11 @@ def stop():
 
 def getMessage(response):
     if(response['dialogState'] == 'ConfirmIntent'):
-        return response['message']
+        return (response['message'],1)
     elif(response['dialogState'] == 'ReadyForFulfillment'):
-        return "ReadyForFulfillment"
+        return ("ReadyForFulfillment",2)
     elif(response['dialogState'] == 'Failed'):
-        return response['message']
+        return (response['message'],0)
     else:
         return None
 
@@ -86,7 +85,6 @@ def call_police():
         inputText=text
     )
     return getMessage(response)
-
 
 def eyes_closed():
     response = lex.post_text(
