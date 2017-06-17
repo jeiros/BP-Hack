@@ -53,6 +53,19 @@ def getMessage(response):
         return None
 
 
+def lex_txrx(mess):
+    response = lex.post_text(
+        botName='CopilotBot',
+        botAlias='Prod',
+        userId='TheRubberDucks',
+        sessionAttributes={
+            'string': 'string'
+        },
+        inputText=mess
+    )
+    return getMessage(response)
+
+
 def call_police():
     time.sleep(3)
     print('HABLA AHORA')
