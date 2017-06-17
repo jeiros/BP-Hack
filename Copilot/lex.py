@@ -49,7 +49,6 @@ def getMessage(response):
 
 
 def call_police():
-
     text = recognize_speech(record_to_file('test1.wav'))
     response = lex.post_text(
         botName='CopilotBot',
