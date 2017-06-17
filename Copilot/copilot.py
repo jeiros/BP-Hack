@@ -28,9 +28,11 @@ class copilot_obj:
         if(self.active):
             r0 = lex.eyes_closed()
             self.CP_speak(r0)
-
-            # Respond with audio.
-            r1 = lex.spoken_no()
+            # yes
+            r1 = lex.yes()
             self.CP_speak(r1)
+            # call the police
+            r2 = lex.call_police()
+            self.CP_speak(r2)
         else:
             pass

@@ -7,6 +7,20 @@ import sys
 import subprocess
 from tempfile import gettempdir
 import json
+import speech_recognition as sr
+from voice import record_to_file
+from os import path
+
+
+def recognize_speech(audio_file):
+    r = sr.Recognizer()
+    AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), audio_file)
+    with sr.AudioFile(AUDIO_FILE) as source:
+        audio = r.record(source)  # read the entire audio file
+    text = r.recognize_google(audio)
+    print("Google Speech Recognition thinks you said " + text)
+    return text
+
 
 lex_session = Session(profile_name="adminuser", region_name="us-east-1")
 lex = lex_session.client("lex-runtime")
@@ -29,13 +43,13 @@ def getMessage(response):
         return "ReadyForFulfillment"
     elif(response['dialogState'] == 'Failed'):
         return response['message']
-    elif(response['dialogState'] == 'ElicitIntent'):
-        return response['message']
     else:
         return None
 
 
 def call_police():
+
+    text = recognize_speech(record_to_file('test1.wav'))
     response = lex.post_text(
         botName='CopilotBot',
         botAlias='Prod',
@@ -43,7 +57,7 @@ def call_police():
         sessionAttributes={
             'string': 'string'
         },
-        inputText='Call the police'
+        inputText=text
     )
     return getMessage(response)
 
@@ -124,8 +138,6 @@ def no():
     return getMessage(response)
 
 def spoken_no():
-    file_w = open('./stereo_file.wav', 'r')
-    audio_stream = file_w.read
     response = lex.post_content(
         botName='CopilotBot',
         botAlias='Prod',
@@ -134,8 +146,8 @@ def spoken_no():
             'string': 'string'
         },
         accept = 'text/plain; charset=utf-8',
-        contentType='audio/L16; rate=16000; channels=1',
-        inputStream= 'yes.wav'
+        contentType='audio/',
+        inputStream= 'https://s3.eu-west-2.amazonaws.com/static-server-for-rendering-xml/no.opus'
     )
 
     print(response)
