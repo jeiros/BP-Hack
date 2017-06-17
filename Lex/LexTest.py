@@ -23,10 +23,23 @@ import wave
 
 # Create a client using the credentials and region defined in the [adminuser]
 # section of the AWS credentials file (~/.aws/credentials).
-session = Session(profile_name="adminuser")
+lex_session = Session(profile_name="adminuser")
+polly_session = Session(profile_name="default")
 
-lex = session.client("lex-runtime")
+lex = lex_session.client("lex-runtime")
+polly = polly_session.client("polly")
 
+response = lex.post_text(
+    botName='TheRubberBot',
+    botAlias='TheRubberBot',
+    userId='TheRubberDucks',
+    sessionAttributes={
+        'string': 'string'
+    },
+    inputText='My eyes are closing'
+)
+
+print(response);
 
 """
 try:
