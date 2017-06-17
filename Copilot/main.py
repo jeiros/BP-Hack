@@ -21,4 +21,3 @@ if __name__ == '__main__':
 
     # While(1) loop.
     alicia.run()
-

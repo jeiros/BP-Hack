@@ -13,6 +13,7 @@ from os import path
 
 
 def recognize_speech(audio_file):
+    "Edu papa bless boiii you da best"
     r = sr.Recognizer()
     AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), audio_file)
     with sr.AudioFile(AUDIO_FILE) as source:
