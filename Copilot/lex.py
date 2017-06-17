@@ -131,8 +131,13 @@ def text_contact(person):
         inputText='text %s' % person
     )
     contact = response['slots']['CONTACT']
+    print(contact)
     if contact in contact_list:
         print(contact_list[contact])
+        friends_number = contact_list[contact]
+        print(friends_number)
+        drivers_name = 'Juan'
+        text_friend(contact_list[friends_number], drivers_name)
     # return response
 
 

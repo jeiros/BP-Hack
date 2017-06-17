@@ -4,6 +4,8 @@ import voice
 import audio
 import time
 import speech_recognition as sr
+from text_friend import text_friend
+from make_call import make_call
 
 class copilot_obj:
 
