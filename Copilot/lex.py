@@ -44,19 +44,24 @@ def stop():
 def getMessage(response):
     print(response)
 
-    if(response['dialogState'] == 'ConfirmIntent'):
-        return (response['message'], 1)
-    elif(response['dialogState'] == 'ReadyForFulfillment'):
-        if response['intentName'] == "CallPolice":
-            return ("ReadyForFulfillment", 3)
+    if response['dialogState'] == 'ConfirmIntent':
+        return response['message'], 1, None
+    elif response['dialogState'] == 'ReadyForFulfillment':
+        if response['intentName'] == 'CallPolice':
+            return "ReadyForFulfillment", 3, None
+        elif response['intentName'] == 'TextContact':
+            contact = response['slots']['CONTACT']
+            return 'Ok, sending a message to %s' % contact, 4, contact
         else:
-            return ("ReadyForFulfillment", 2)
+            return "ReadyForFulfillment", 2, None
     elif(response['dialogState'] == 'Failed'):
-        return (response['message'], 0)
+        return response['message'], 0, None
     elif response['dialogState'] == 'ElicitIntent':
-        return (response['message'], 1)
+        return response['message'], 1, None
+    elif response['dialogState'] == 'ElicitSlot' and response['slotToElicit'] == 'CONTACT':
+        return response['message'], 1, None
     else:
-        return None
+        return None, None, None
 
 
 def lex_txrx(mess):

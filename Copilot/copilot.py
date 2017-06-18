@@ -35,26 +35,35 @@ class copilot_obj:
         #self.CP_speak("Hello, I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
 
     def Bot_Process(self):
-        r, type = lex.eyes_closed()
+        r, type, _ = lex.eyes_closed()
         self.CP_speak(r)
         self.finish = False
         while(not self.finish):
             self.CP_listen()
-            r, type = lex.lex_txrx(self.mess_text)
-            if(type == 1):
+            r, type, slot = lex.lex_txrx(self.mess_text)
+            if type == 1:
+                # HABLA CON POLLY EL MENSAJE
                 self.CP_speak(r)
-            elif(type == 2):
+            elif type == 2:
+                # READY FOR FULFILMENT
                 self.CP_speak("I can play music for you.")
                 self.CP_speak("I can send an automatic message.")
                 self.CP_speak("I can call the emergency services.")
                 self.CP_speak("What would you like me to do?.")
-            elif(type == 0):
+            elif type == 0:
+                # ACABA SESION
                 self.CP_speak(r)
                 lex.stop()
                 self.finish = True
-            elif(type == 3):
+            elif type == 3:
+                # LLAMA A LA POLI
                 make_call()
+            elif type == 4:
+                # MANDA UN MENSAJE
+                self.CP_speak(r)
+                text_friend(slot)
             elif self.trials > 3:
+                # SI MAS DE TRES INTENTOS, SALIR
                 lex.stop()
                 self.finish = True
             else:
