@@ -1,8 +1,3 @@
-"""
-    Author: The Rubber Ducks
-"""
-
-"""Getting Started Example for Python 2.7+/3.3+"""
 import copilot
 
 if __name__ == '__main__':

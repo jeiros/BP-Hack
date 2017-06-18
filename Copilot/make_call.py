@@ -16,4 +16,3 @@ def make_call():
                     url='http://pablopg.dte.us.es:5000')
     except:
         pass
-    print(call.sid)
