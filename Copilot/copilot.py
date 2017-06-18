@@ -55,8 +55,7 @@ class copilot_obj:
                 self.CP_speak(r)
                 self.finish = True
             elif(type == 3):
-                pass
-                #make_call()
+                make_call()
             elif self.trials > 3:
                 lex.stop()
                 break
