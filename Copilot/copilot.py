@@ -8,6 +8,7 @@ from text_friend import text_friend
 from make_call import make_call
 
 
+
 class copilot_obj:
 
     def __init__(self):
@@ -38,7 +39,7 @@ class copilot_obj:
         r, type, _ = lex.eyes_closed()
         self.CP_speak(r)
         self.finish = False
-        while(not self.finish):
+        while not self.finish:
             self.CP_listen()
             r, type, slot = lex.lex_txrx(self.mess_text)
             if type == 1:
