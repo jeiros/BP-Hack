@@ -80,7 +80,8 @@ def getMessage(response):
             # message is None here
             return None, 3, None
     elif intentName == 'FindNearestGasStation':
-        pass
+        if dialogState == 'ReadyForFulfillment':
+            return "Ok, looking for the nearest gas station", 5, None
     elif intentName == 'PlayMusic':
         pass
     elif intentName == 'TextContact':

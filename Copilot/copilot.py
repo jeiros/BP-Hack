@@ -6,7 +6,7 @@ import time
 import speech_recognition as sr
 from text_friend import text_friend
 from make_call import make_call
-
+from find_closest_gas_station import get_closest_gas_station
 
 
 class copilot_obj:
@@ -59,12 +59,29 @@ class copilot_obj:
             elif type == 3:
                 # LLAMA A LA POLI
                 make_call()
+                self.CP_speak("Called the police. Drive safe, bye.")
+                lex.stop()
+                self.finish = True
             elif type == 4:
                 # MANDA UN MENSAJE
                 self.CP_speak(r)
                 text_friend(slot)
+                self.CP_speak("Text sent to %s" % slot)
+                lex.stop()
+                self.finish = True
+            elif type == 5:
+                # GAS STATION ROUTER
+                self.CP_speak(r)
+                # call al codi de routing
+                destination, address_name = get_closest_gas_station()
+                self.CP_speak("The nearest gast station is %s." % address_name)
+                self.CP_speak("Routing you to %s " % destination)
+                self.CP_speak("Drive safe, bye.")
+                lex.stop()
+                self.finish = True
             elif self.trials > 3:
                 # SI MAS DE TRES INTENTOS, SALIR
+                self.CP_speak("I could not understand you for three attempts. Drive safe, bye.")
                 lex.stop()
                 self.finish = True
             else:
