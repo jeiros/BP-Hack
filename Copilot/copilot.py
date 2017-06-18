@@ -20,7 +20,7 @@ class copilot_obj:
         print("trials {}".format(self.trials))
         try:
             self.voice_record = voice.record_to_file('trial1.wav')
-            self.mess_text = lex.recognize_speech(self.voice_record)
+            self.mess_text = lex.recognize_speech('./../trial1.wav')
         except:
             self.trials += 1
             self.CP_speak("Could not understand you.")
@@ -31,9 +31,12 @@ class copilot_obj:
             polly.polly_play(message)
         time.sleep(0.1)
 
-    def start(self):
+    def error_recognition(self):
         self.active = True
-        #self.CP_speak("Hello, I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
+        self.CP_speak("I'm sorry, I do not see you in the list of drivers. Let me add you.")
+    def start(self, name):
+        self.active = True
+        self.CP_speak("Hello " + name + ", I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
 
     def Bot_Process(self):
         r, type, _ = lex.eyes_closed()

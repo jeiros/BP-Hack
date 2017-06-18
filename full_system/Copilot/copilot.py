@@ -6,8 +6,7 @@ import time
 import speech_recognition as sr
 from text_friend import text_friend
 from make_call import make_call
-
-
+from find_closest_gas_station import get_closest_gas_station
 
 class copilot_obj:
 
@@ -44,15 +43,22 @@ class copilot_obj:
         self.finish = False
         while not self.finish:
             self.CP_listen()
-            r, type, slot = lex.lex_txrx(self.mess_text)
+            try:
+                if self.mess_text is not None:
+                    r, type, slot = lex.lex_txrx(self.mess_text)
+                else:
+                    continue
+            except:
+                continue
             if type == 1:
                 # HABLA CON POLLY EL MENSAJE
                 self.CP_speak(r)
             elif type == 2:
                 # READY FOR FULFILMENT
-                self.CP_speak("I can play music for you.")
-                self.CP_speak("I can send an automatic message.")
+                self.CP_speak("I can route you to the nearest gas station.")
+                self.CP_speak("I can send a text to one of your contacts.")
                 self.CP_speak("I can call the emergency services.")
+                self.CP_speak("I can also play some music to wake you up!")
                 self.CP_speak("What would you like me to do?.")
             elif type == 0:
                 # ACABA SESION
@@ -62,12 +68,35 @@ class copilot_obj:
             elif type == 3:
                 # LLAMA A LA POLI
                 make_call()
+                self.CP_speak("Called the police. Drive safe, bye.")
+                lex.stop()
+                self.finish = True
             elif type == 4:
                 # MANDA UN MENSAJE
                 self.CP_speak(r)
                 text_friend(slot)
+                self.CP_speak("Text sent to %s" % slot)
+                lex.stop()
+                self.finish = True
+            elif type == 5:
+                # GAS STATION ROUTER
+                self.CP_speak(r)
+                # call al codi de routing
+                destination, address_name = get_closest_gas_station()
+                self.CP_speak("The nearest gast station is %s." % address_name)
+                self.CP_speak("Routing you to %s " % destination)
+                self.CP_speak("Drive safe, bye.")
+                lex.stop()
+                self.finish = True
+            elif type == 6:
+                # PLAY MUSIC BOI
+                self.CP_speak(r)
+                audio.play_mp3("winsong.mp3", 1.0)
+                lex.stop()
+                self.finish = True
             elif self.trials > 3:
                 # SI MAS DE TRES INTENTOS, SALIR
+                self.CP_speak("I could not understand you for three attempts. Drive safe, bye.")
                 lex.stop()
                 self.finish = True
             else:

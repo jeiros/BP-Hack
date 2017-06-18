@@ -112,6 +112,7 @@ def main():
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
             print 'Driver is sleeping! '
             alicia.run()
+            list_asleep = []
 
         if conf.is_raspi:
             stream.seek(0)
