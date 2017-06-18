@@ -41,7 +41,10 @@ class copilot_obj:
         self.finish = False
         while not self.finish:
             self.CP_listen()
-            r, type, slot = lex.lex_txrx(self.mess_text)
+            try:
+                r, type, slot = lex.lex_txrx(self.mess_text)
+            except:
+                continue
             if type == 1:
                 # HABLA CON POLLY EL MENSAJE
                 self.CP_speak(r)
@@ -83,7 +86,7 @@ class copilot_obj:
             elif type == 6:
                 # PLAY MUSIC BOI
                 self.CP_speak(r)
-                play_music()
+                audio.play_mp3("winsong.mp3", 1.0)
                 lex.stop()
                 self.finish = True
             elif self.trials > 3:
