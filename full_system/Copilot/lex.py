@@ -90,7 +90,12 @@ def getMessage(response):
         elif dialogState == 'ReadyForFulfillment':
             contact = response['slots']['CONTACT']
             return "Ok, texting %s" % contact, 4, contact
-
+    elif intentName == 'StartOver':
+        if dialogState == 'ReadyForFulfillment':
+            lex_txrx('help')  # hack this to trigger help
+    elif intentName == 'AskForHelp':
+        if dialogState == 'ReadyForFulfillment':
+            return None, 2, None
     elif intentName == 'Stop':
         return "Ok, drive safe.", 0, None
     elif intentName == 'Help':
