@@ -73,6 +73,12 @@ def train_pca():
 	 
 	# Create an array with flattened images X
 	# and an array with ID of the people on each image y
+	NUM_TRAINIMAGES = 0
+	for x, folder in enumerate(folders):
+	    train_faces = glob.glob(folder + '/*')
+	    for i, face in enumerate(train_faces):
+	        NUM_TRAINIMAGES += 1
+	print(NUM_TRAINIMAGES)
 	X = np.zeros([NUM_TRAINIMAGES, IMG_RES], dtype='int8')
 	y = []
 
@@ -81,7 +87,6 @@ def train_pca():
 	for x, folder in enumerate(folders):
 	    train_faces = glob.glob(folder + '/*')
 	    for i, face in enumerate(train_faces):
-	    	print(face)
 	        X[c,:] = prepare_image(face)
 	        y.append(ID_from_filename(face))
 	        c = c + 1
