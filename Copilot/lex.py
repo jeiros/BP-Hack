@@ -43,12 +43,18 @@ def stop():
 
 def getMessage(response):
     print(response)
+
     if(response['dialogState'] == 'ConfirmIntent'):
-        return (response['message'],1)
+        return (response['message'], 1)
     elif(response['dialogState'] == 'ReadyForFulfillment'):
-        return ("ReadyForFulfillment",2)
+        if response['intentName'] == "CallPolice":
+            return ("ReadyForFulfillment", 3)
+        else:
+            return ("ReadyForFulfillment", 2)
     elif(response['dialogState'] == 'Failed'):
-        return (response['message'],0)
+        return (response['message'], 0)
+    elif response['dialogState'] == 'ElicitIntent':
+        return (response['message'], 1)
     else:
         return None
 

@@ -11,11 +11,17 @@ class copilot_obj:
 
     def __init__(self):
         self.active = False
+        self.trials = 0
         lex.stop()
 
     def CP_listen(self):
-        self.voice_record = voice.record_to_file('trial1.wav')
-        self.mess_text = lex.recognize_speech(self.voice_record)
+        print("trials {}".format(self.trials))
+        try:
+            self.voice_record = voice.record_to_file('trial1.wav')
+            self.mess_text = lex.recognize_speech(self.voice_record)
+        except:
+            self.trials += 1
+            self.CP_speak("Could not understand you.")
 
     def CP_speak(self, message):
         if message is not None:
@@ -47,13 +53,16 @@ class copilot_obj:
                 self.CP_speak("What would you like me to do?.")
             elif(type == 0):
                 self.CP_speak(r)
-                self.finish = 1
+                self.finish = True
             elif(type == 3):
                 pass
                 #make_call()
+            elif self.trials > 3:
+                lex.stop()
+                break
             else:
                 pass
-            lex.stop()
+        lex.stop()
 
     def run(self):
         if(self.active):
