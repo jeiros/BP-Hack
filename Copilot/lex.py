@@ -11,6 +11,8 @@ import speech_recognition as sr
 from voice import record_to_file
 from os import path
 import time
+from pprint import pprint
+
 
 def recognize_speech(audio_file):
     "Edu papa bless boiii you da best"
@@ -42,26 +44,61 @@ def stop():
 
 
 def getMessage(response):
-    print(response)
+    # Variables
+    pprint(response)
+    intentName = None
+    if 'intentName' in response.keys():
+        intentName = response['intentName']
+    dialogState = None
+    if 'dialogState' in response.keys():
+        dialogState = response['dialogState']
+    message = None
+    if 'message' in response.keys():
+        message = response['message']
 
-    if response['dialogState'] == 'ConfirmIntent':
-        return response['message'], 1, None
-    elif response['dialogState'] == 'ReadyForFulfillment':
-        if response['intentName'] == 'CallPolice':
-            return "ReadyForFulfillment", 3, None
-        elif response['intentName'] == 'TextContact':
+    # Logica
+    if intentName == 'EyesClosed':
+        if dialogState == 'ConfirmIntent':
+             # Al principio de todo
+            return message, 1, None
+        elif dialogState == 'Failed':
+            # Dices no
+            return message, 0, None
+        elif dialogState == 'ReadyForFulfillment':
+            # Dices yes
+            # message is None here
+            return None, 2, None
+    elif intentName == 'CallPolice':
+        if dialogState == 'ConfirmIntent':
+            # Espera respuesta
+            return message, 1, None
+        elif dialogState == 'Failed':
+            # Dices no
+            return message, 0, None
+        elif dialogState == 'ReadyForFulfillment':
+            # Dices yes
+            # message is None here
+            return None, 3, None
+    elif intentName == 'FindNearestGasStation':
+        pass
+    elif intentName == 'PlayMusic':
+        pass
+    elif intentName == 'TextContact':
+        # sin slot, dices 'send a text'
+        if dialogState == 'ElicitSlot':
+            return message, 1, None
+        elif dialogState == 'ReadyForFulfillment':
             contact = response['slots']['CONTACT']
-            return 'Ok, sending a message to %s' % contact, 4, contact
-        else:
-            return "ReadyForFulfillment", 2, None
-    elif(response['dialogState'] == 'Failed'):
-        return response['message'], 0, None
-    elif response['dialogState'] == 'ElicitIntent':
-        return response['message'], 1, None
-    elif response['dialogState'] == 'ElicitSlot' and response['slotToElicit'] == 'CONTACT':
-        return response['message'], 1, None
-    else:
-        return None, None, None
+            return "Ok, texting %s" % contact, 4, contact
+
+    elif intentName == 'Stop':
+        return "Ok, drive safe.", 0, None
+    elif intentName == 'Help':
+        return None, 2, None
+    # Si no hay intents
+    elif intentName is None:
+        if dialogState == 'ElicitIntent':
+            return message, 1, None
 
 
 def lex_txrx(mess):
@@ -97,6 +134,7 @@ def call_police():
         inputText=text
     )
     return getMessage(response)
+
 
 def eyes_closed():
     response = lex.post_text(
