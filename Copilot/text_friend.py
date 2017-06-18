@@ -14,7 +14,7 @@ def text_friend(user_name='John'):
     client = Client(account_sid, auth_token)
 
     my_twilio_number = "+441423740800"
-    text = "We think your friend {} might have had an accident. Please, contact him.".format('Juan')
+    text = "Your friend is driving and tired. Please, try contacting him."
     try:
         message = client.api.account.messages.create(to=number,
                                                      from_=my_twilio_number,
