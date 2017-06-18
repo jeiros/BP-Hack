@@ -83,7 +83,8 @@ def getMessage(response):
         if dialogState == 'ReadyForFulfillment':
             return "Ok, looking for the nearest gas station", 5, None
     elif intentName == 'PlayMusic':
-        pass
+        if dialogState == 'ReadyForFulfillment':
+            return "Playing your favourite jam!", 6, None
     elif intentName == 'TextContact':
         # sin slot, dices 'send a text'
         if dialogState == 'ElicitSlot':

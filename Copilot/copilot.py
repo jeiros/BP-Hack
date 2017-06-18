@@ -7,7 +7,7 @@ import speech_recognition as sr
 from text_friend import text_friend
 from make_call import make_call
 from find_closest_gas_station import get_closest_gas_station
-
+from play_music import play_music
 
 class copilot_obj:
 
@@ -78,6 +78,12 @@ class copilot_obj:
                 self.CP_speak("The nearest gast station is %s." % address_name)
                 self.CP_speak("Routing you to %s " % destination)
                 self.CP_speak("Drive safe, bye.")
+                lex.stop()
+                self.finish = True
+            elif type == 6:
+                # PLAY MUSIC BOI
+                self.CP_speak(r)
+                play_music()
                 lex.stop()
                 self.finish = True
             elif self.trials > 3:
