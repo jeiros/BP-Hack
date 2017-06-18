@@ -7,6 +7,7 @@ import speech_recognition as sr
 from text_friend import text_friend
 from make_call import make_call
 
+
 class copilot_obj:
 
     def __init__(self):
@@ -33,12 +34,8 @@ class copilot_obj:
         self.active = True
         #self.CP_speak("Hello, I'm your personal copilot. I will be checking your status during the whole driving session. Enjoy your travel.")
 
-
-
     def Bot_Process(self):
         r, type = lex.eyes_closed()
-        print(r)
-        print(type)
         self.CP_speak(r)
         self.finish = False
         while(not self.finish):
@@ -53,12 +50,13 @@ class copilot_obj:
                 self.CP_speak("What would you like me to do?.")
             elif(type == 0):
                 self.CP_speak(r)
+                lex.stop()
                 self.finish = True
             elif(type == 3):
                 make_call()
             elif self.trials > 3:
                 lex.stop()
-                break
+                self.finish = True
             else:
                 pass
         lex.stop()
