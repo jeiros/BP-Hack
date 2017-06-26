@@ -55,10 +55,10 @@ class copilot_obj:
                 self.CP_speak(r)
             elif type == 2:
                 # READY FOR FULFILMENT
+                self.CP_speak("I can play some music.")
                 self.CP_speak("I can route you to the nearest gas station.")
                 self.CP_speak("I can send a text to one of your contacts.")
-                self.CP_speak("I can call the emergency services.")
-                self.CP_speak("I can also play some music to wake you up!")
+                self.CP_speak("I can also call the emergency services.")
                 self.CP_speak("What would you like me to do?.")
             elif type == 0:
                 # ACABA SESION

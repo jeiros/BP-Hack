@@ -8,10 +8,10 @@ def make_call():
     client = Client(account_sid, auth_token)
 
     # Make the call
-    name_to_number = {'edu': '+447731513965'}
+    name_to_number = {'edu': '+447731513965', "Harry": "+447880787218"}
     try:
         call = client.api.account.calls\
-            .create(to=name_to_number['edu'],  # Any phone number
+            .create(to=name_to_number['Harry'],  # Any phone number
                     from_="+441423740800",  # Must be a valid Twilio number
                     url='http://pablopg.dte.us.es:5000')
     except:

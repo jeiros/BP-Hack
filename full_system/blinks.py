@@ -198,7 +198,7 @@ def initiate_asleep_detector(frames_count, counter_asleep, detector, predictor, 
 			cv2.putText(frame, "MAR: {:.2f}".format(mouthAR), (440, 70),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 			if ASLEEP == True  and frames_count>60:
-				cv2.putText(frame, "ASLEEP", (250, 400),
+				cv2.putText(frame, "TIRED", (250, 400),
 				cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 			break
 	if len(rects) == 0:
